@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Алексей Морозов — персональный тренер, запись онлайн</title>
+<meta name="description" content="Персональные тренировки: силовые, снижение веса, спина и осанка. Выберите свободное время и запишитесь на первое занятие.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --floor:#E9EDF0;
+  --chalk:#FFFFFF;
+  --ink:#101B33;
+  --steel:#4F5F77;
+  --line:#C5CED8;
+  --tape:#FFD60A;
+  --tape-ink:#101B33;
+  --busy:#B9C3CE;
+  --ok:#1F7A4D;
+  --err:#B3261E;
+  --pad:clamp(16px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--floor);color:var(--ink);font:400 17px/1.55 "Golos Text",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Unbounded",system-ui,sans-serif;margin:0;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
+
+/* top bar */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0}
+.bar b{font-family:"Unbounded";font-weight:700;font-size:15px}
+.bar nav{display:flex;gap:22px;align-items:center;font-size:15px}
+.bar nav a{text-decoration:none}
+.bar nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.bar .tel{font-weight:600}
+@media(max-width:640px){.bar nav a.opt{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start;padding:clamp(24px,5vw,56px) 0 clamp(48px,7vw,96px)}
+.hero h1{font-size:clamp(32px,5.2vw,64px);font-weight:800}
+.hero h1 span{display:block}
+.lead{max-width:34em;margin:22px 0 0;font-size:19px;color:var(--steel)}
+.facts{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0;max-width:30em;border-top:2px solid var(--ink)}
+.facts li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}
+.facts li span:first-child{color:var(--steel)}
+.facts li span:last-child{font-weight:600;text-align:right}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+/* booking */
+.book{background:var(--ink);color:#fff;border-radius:4px;padding:clamp(20px,3vw,32px);position:relative}
+.book::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(-45deg,var(--tape) 0 14px,var(--ink) 14px 28px);border-radius:4px 4px 0 0}
+.book h2{font-size:22px;margin-top:10px}
+.book .sub{margin:6px 0 20px;color:#B8C3D6;font-size:15px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{background:transparent;border:1.5px solid #3A4968;color:#fff;border-radius:3px;padding:8px 2px;font:inherit;cursor:pointer;text-align:center;line-height:1.2}
+.day small{display:block;color:#B8C3D6;font-size:12px}
+.day b{display:block;font-size:18px;font-weight:600}
+.day[aria-pressed=true]{background:#fff;color:var(--ink);border-color:#fff}
+.day[aria-pressed=true] small{color:var(--steel)}
+.day:disabled{opacity:.4;cursor:not-allowed}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:18px;min-height:46px}
+.time{font:600 16px/1 "Golos Text";padding:13px 0;border-radius:3px;border:1.5px solid #fff;background:transparent;color:#fff;cursor:pointer}
+.time:hover{background:#22304F}
+.time[aria-pressed=true]{background:var(--tape);color:var(--tape-ink);border-color:var(--tape)}
+.time:disabled{border-color:#3A4968;color:#6F7E98;text-decoration:line-through;cursor:not-allowed;background:transparent}
+.empty{grid-column:1/-1;color:#B8C3D6;margin:0;align-self:center}
+.legend{display:flex;gap:16px;margin:12px 0 0;font-size:13px;color:#B8C3D6}
+form{margin-top:22px;border-top:1px solid #3A4968;padding-top:20px;display:grid;gap:14px}
+label{display:grid;gap:6px;font-size:14px;color:#D5DCE8}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:2px solid #fff;border-radius:3px;padding:12px;width:100%}
+textarea{min-height:76px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--tape);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.row2{grid-template-columns:1fr}}
+.chosen{margin:0;padding:12px 14px;background:#1A2A4B;border-left:5px solid var(--tape);border-radius:2px;font-weight:600}
+.chosen.none{border-left-color:#6F7E98;font-weight:400;color:#B8C3D6}
+.err{color:#FFB4AB;font-size:14px;margin:0;min-height:1.2em}
+.btn{font:700 16px/1 "Unbounded";background:var(--tape);color:var(--tape-ink);border:0;border-radius:3px;padding:18px 20px;cursor:pointer;width:100%}
+.btn:hover{filter:brightness(1.06)}
+.btn.alt{background:transparent;color:#fff;border:1.5px solid #fff;font-family:"Golos Text";font-weight:600}
+.done{display:none}
+.book.is-done .pick{display:none}
+.book.is-done .done{display:block}
+.done h2{margin-top:10px}
+.done .sum{font:600 20px/1.35 "Golos Text";margin:16px 0;padding:14px;background:#1A2A4B;border-left:5px solid var(--tape)}
+.done pre{white-space:pre-wrap;font:inherit;background:#fff;color:var(--ink);padding:14px;border-radius:3px;margin:0 0 14px;font-size:15px}
+.done .btns{display:grid;gap:10px}
+.done a.btn{display:block;text-align:center;text-decoration:none}
+
+/* sections */
+section.s{padding:clamp(48px,7vw,88px) 0;border-top:2px solid var(--ink)}
+section.s>.wrap>h2{font-size:clamp(24px,3.2vw,38px);max-width:18em}
+.cols{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px)}
+@media(max-width:820px){.cols{grid-template-columns:1fr}}
+.cols p.note{color:var(--steel);max-width:26em;margin:16px 0 0}
+
+/* program sheet: pricing */
+.sheet{list-style:none;margin:0;padding:0;background:var(--chalk);border-radius:3px;border:2px solid var(--ink)}
+.sheet li{display:grid;grid-template-columns:1fr auto;gap:4px 20px;padding:20px 22px;border-bottom:1px dashed var(--line)}
+.sheet li:last-child{border-bottom:0}
+.sheet h3{font-size:18px;font-weight:700}
+.sheet p{margin:4px 0 0;color:var(--steel);font-size:15px;grid-column:1}
+.sheet .price{grid-row:1/3;grid-column:2;align-self:center;text-align:right;font:700 22px/1.1 "Unbounded"}
+.sheet .price small{display:block;font:400 13px "Golos Text";color:var(--steel);margin-top:4px}
+.sheet .hit{background:var(--tape)}
+.sheet .hit p,.sheet .hit .price small{color:var(--ink)}
+
+/* process: a real sequence */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s);font:800 28px/1 "Unbounded";color:var(--ink);background:var(--tape);width:44px;height:44px;display:grid;place-items:center;border-radius:2px}
+.steps h3{font-size:18px}
+.steps p{margin:6px 0 0;color:var(--steel)}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:18px 0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:700 22px/1 "Unbounded"}
+details[open] summary::after{content:"−"}
+details p{margin:10px 0 0;color:var(--steel);max-width:40em}
+
+footer{background:var(--ink);color:#fff;padding:48px 0 56px}
+footer .wrap{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+footer h2{font-size:clamp(22px,3vw,34px);max-width:14em}
+footer a{font-weight:600}
+@media(max-width:700px){footer .wrap{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:no-preference){
+  .time,.day{transition:background-color .15s,color .15s,border-color .15s}
+  .book.is-done .done{animation:pop .3s ease-out}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="bar">
+    <b>Алексей Морозов</b>
+    <nav aria-label="Основное меню">
+      <a class="opt" href="#prices">Цены</a>
+      <a class="opt" href="#how">Как проходит</a>
+      <a class="opt" href="#faq">Вопросы</a>
+      <a class="tel" href="tel:+79990000000">+7 999 000-00-00</a>
+    </nav>
+  </header>
+
+  <main>
+  <div class="hero">
+    <div>
+      <h1><span>Персональные</span><span>тренировки</span><span>без угадывания.</span></h1>
+      <p class="lead">Силовые, снижение веса, спина и осанка. Программа строится под ваш график, травмы и цель, а каждое занятие записано в дневник, чтобы был виден прогресс.</p>
+      <ul class="facts">
+        <li><span>Занятие</span><span>60 минут, один на один</span></li>
+        <li><span>Первая тренировка</span><span>1 500 ₽, со сбором замеров</span></li>
+        <li><span>Где</span><span>Студия на 6 человек, ул. Садовая, 12</span></li>
+        <li><span>Отмена</span><span>бесплатно за 12 часов</span></li>
+      </ul>
+    </div>
+
+    <div class="book" id="book">
+      <div class="pick">
+        <h2>Выберите время</h2>
+        <p class="sub">Свободные окна на ближайшие 7 дней</p>
+        <div class="days" id="days" role="group" aria-label="День"></div>
+        <div class="times" id="times" role="group" aria-label="Время"></div>
+        <p class="legend" aria-hidden="true"><span>Жёлтое — ваш выбор</span><span>Зачёркнуто — занято</span></p>
+
+        <form id="form" novalidate>
+          <p class="chosen none" id="chosen" aria-live="polite">Сначала выберите день и время</p>
+          <div class="row2">
+            <label>Имя
+              <input name="name" autocomplete="given-name" required>
+            </label>
+            <label>Телефон
+              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 ___ ___-__-__" required>
+            </label>
+          </div>
+          <label>Цель
+            <select name="goal">
+              <option>Похудеть</option>
+              <option>Набрать мышечную массу</option>
+              <option>Спина и осанка</option>
+              <option>Вернуться после перерыва или травмы</option>
+              <option>Пока не знаю, нужен совет</option>
+            </select>
+          </label>
+          <label>Комментарий, если нужен
+            <textarea name="note" placeholder="Травмы, ограничения, пожелания"></textarea>
+          </label>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit">Записаться</button>
+        </form>
+      </div>
+
+      <div class="done" id="done" aria-live="polite">
+        <h2>Время забронировано</h2>
+        <p class="sub">Осталось отправить заявку тренеру. После ответа запись подтверждена.</p>
+        <p class="sum" id="sum"></p>
+        <pre id="msg"></pre>
+        <div class="btns">
+          <a class="btn" id="tg" target="_blank" rel="noopener">Отправить в Telegram</a>
+          <button class="btn alt" id="copy" type="button">Скопировать текст</button>
+          <button class="btn alt" id="again" type="button">Выбрать другое время</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+</div>
+
+<section class="s" id="prices">
+  <div class="wrap cols">
+    <div>
+      <h2>Сколько это стоит</h2>
+      <p class="note">Абонементы действуют 2 месяца. Занятия можно переносить, если предупредить за 12 часов.</p>
+    </div>
+    <ul class="sheet">
+      <li><h3>Первая тренировка</h3><p>Замеры, разбор цели, пробное занятие, план на месяц</p><div class="price">1 500 ₽</div></li>
+      <li><h3>Разовое занятие</h3><p>60 минут, без абонемента</p><div class="price">3 000 ₽</div></li>
+      <li class="hit"><h3>8 занятий</h3><p>Два раза в неделю на месяц. Чаще всего берут этот</p><div class="price">22 000 ₽<small>2 750 ₽ за занятие</small></div></li>
+      <li><h3>16 занятий</h3><p>Два месяца, программа корректируется каждые 4 недели</p><div class="price">40 000 ₽<small>2 500 ₽ за занятие</small></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="s" id="how">
+  <div class="wrap cols">
+    <div><h2>Как проходит первое занятие</h2></div>
+    <ol class="steps">
+      <li><div><h3>Разговор и замеры</h3><p>Цель, график, травмы, привычки. Вес, объёмы, тест на подвижность. Около 15 минут.</p></div></li>
+      <li><div><h3>Тренировка в вашем темпе</h3><p>Базовые движения с лёгкой нагрузкой, чтобы увидеть, как вы двигаетесь, и поставить технику.</p></div></li>
+      <li><div><h3>План на месяц</h3><p>После занятия вы получаете расписание и список упражнений. Дальше решаете, продолжать ли.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="s" id="faq">
+  <div class="wrap cols">
+    <div><h2>Частые вопросы</h2></div>
+    <div>
+      <details><summary>Я давно не занимался. Не будет тяжело?</summary><p>Нагрузку подбираю по вашему состоянию. Первые недели мы учим технику, а не гонимся за весом.</p></details>
+      <details><summary>Что взять с собой?</summary><p>Спортивную одежду и сменную обувь. Полотенце и воду можно взять в студии.</p></details>
+      <details><summary>Можно заниматься с болью в спине или коленях?</summary><p>Часто да, но до записи напишите мне в комментарии, что болит. Если нужна консультация врача, скажу об этом прямо.</p></details>
+      <details><summary>Есть ли онлайн-формат?</summary><p>Есть, видеосвязь, 60 минут, 2 000 ₽. Нужен коврик и пара гантелей.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Не нашли подходящее время? Напишите, подберём.</h2>
+    <p><a href="https://t.me/your_trainer">Telegram</a> · <a href="tel:+79990000000">+7 999 000-00-00</a></p>
+  </div>
+</footer>
+
+<script>
+/* ---- Настройки: замените на свои ---- */
+const CONFIG = {
+  trainer: "Алексей",
+  telegram: "your_trainer",            // ник в Telegram без @
+  // время начала занятий по дням недели (0 = воскресенье)
+  schedule: {
+    1:["07:00","08:00","09:00","18:00","19:00","20:00"],
+    2:["07:00","08:00","09:00","18:00","19:00","20:00"],
+    3:["07:00","08:00","09:00","18:00","19:00","20:00"],
+    4:["07:00","08:00","09:00","18:00","19:00","20:00"],
+    5:["07:00","08:00","09:00","18:00","19:00"],
+    6:["10:00","11:00","12:00","13:00"],
+    0:[]
+  },
+  minHoursAhead: 3
+};
+/* ------------------------------------- */
+
+const $ = id => document.getElementById(id);
+const DOW = ["вс","пн","вт","ср","чт","пт","сб"];
+const MONTH = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+const KEY = "trainer-bookings-v1";
+
+function store(){ try{ return JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){ return []; } }
+function save(list){ try{ localStorage.setItem(KEY,JSON.stringify(list)); }catch(e){} }
+const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+
+// Демонстрационная занятость: часть слотов считается занятой (на месте реальной БД)
+function demoBusy(date,time){
+  const s = iso(date)+time; let h=0;
+  for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0;
+  return h%4===0;
+}
+
+const today = new Date(); today.setHours(0,0,0,0);
+const dates = Array.from({length:7},(_,i)=>{ const d=new Date(today); d.setDate(d.getDate()+i); return d; });
+let selDate = null, selTime = null;
+
+function isTaken(date,time){
+  if(demoBusy(date,time)) return true;
+  return store().some(b=>b.date===iso(date)&&b.time===time);
+}
+function isPast(date,time){
+  const [h,m]=time.split(":").map(Number);
+  const t=new Date(date); t.setHours(h,m,0,0);
+  return t - Date.now() < CONFIG.minHoursAhead*3600*1000;
+}
+function freeCount(date){
+  return (CONFIG.schedule[date.getDay()]||[]).filter(t=>!isTaken(date,t)&&!isPast(date,t)).length;
+}
+
+function renderDays(){
+  $("days").innerHTML="";
+  dates.forEach(d=>{
+    const n=freeCount(d);
+    const b=document.createElement("button");
+    b.type="button"; b.className="day";
+    b.setAttribute("aria-pressed", selDate&&iso(selDate)===iso(d));
+    b.disabled = n===0;
+    b.setAttribute("aria-label", `${DOW[d.getDay()]}, ${d.getDate()} ${MONTH[d.getMonth()]}, ${n? "свободно "+n : "мест нет"}`);
+    b.innerHTML=`<small>${DOW[d.getDay()]}</small><b>${d.getDate()}</b>`;
+    b.onclick=()=>{ selDate=d; selTime=null; renderDays(); renderTimes(); renderChosen(); };
+    $("days").appendChild(b);
+  });
+}
+function renderTimes(){
+  const box=$("times"); box.innerHTML="";
+  if(!selDate){ box.innerHTML='<p class="empty">Выберите день</p>'; return; }
+  const slots=CONFIG.schedule[selDate.getDay()]||[];
+  slots.forEach(t=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="time"; b.textContent=t;
+    const off=isTaken(selDate,t)||isPast(selDate,t);
+    b.disabled=off;
+    b.setAttribute("aria-pressed", selTime===t);
+    b.onclick=()=>{ selTime=t; renderTimes(); renderChosen(); };
+    box.appendChild(b);
+  });
+}
+function fmt(d,t){ return `${DOW[d.getDay()]}, ${d.getDate()} ${MONTH[d.getMonth()]} в ${t}`; }
+function renderChosen(){
+  const c=$("chosen");
+  if(selDate&&selTime){ c.textContent=fmt(selDate,selTime); c.classList.remove("none"); }
+  else { c.textContent="Сначала выберите день и время"; c.classList.add("none"); }
+}
+
+// первый день со свободными окнами выбран заранее
+selDate = dates.find(d=>freeCount(d)>0) || null;
+renderDays(); renderTimes(); renderChosen();
+
+let lastText="";
+$("form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f=e.target, err=$("err");
+  const name=f.name.value.trim(), phone=f.phone.value.trim();
+  if(!selDate||!selTime){ err.textContent="Выберите день и время занятия."; return; }
+  if(!name){ err.textContent="Укажите имя."; f.name.focus(); return; }
+  if(phone.replace(/\D/g,"").length<10){ err.textContent="Телефон должен содержать не меньше 10 цифр."; f.phone.focus(); return; }
+  err.textContent="";
+
+  const list=store(); list.push({date:iso(selDate),time:selTime,name,phone}); save(list);
+
+  lastText=`Здравствуйте, ${CONFIG.trainer}! Хочу записаться на тренировку: ${fmt(selDate,selTime)}.\nИмя: ${name}\nТелефон: ${phone}\nЦель: ${f.goal.value}`+(f.note.value.trim()?`\nКомментарий: ${f.note.value.trim()}`:"");
+  $("sum").textContent=fmt(selDate,selTime);
+  $("msg").textContent=lastText;
+  $("tg").href=`https://t.me/${CONFIG.telegram}?text=${encodeURIComponent(lastText)}`;
+  $("book").classList.add("is-done");
+  $("done").querySelector("h2").scrollIntoView({block:"nearest"});
+});
+$("copy").onclick=async()=>{
+  try{ await navigator.clipboard.writeText(lastText); $("copy").textContent="Скопировано"; }
+  catch(e){ $("copy").textContent="Не удалось, выделите текст вручную"; }
+};
+$("again").onclick=()=>{
+  $("book").classList.remove("is-done");
+  $("copy").textContent="Скопировать текст";
+  selTime=null;
+  selDate = dates.find(d=>freeCount(d)>0) || null;
+  renderDays(); renderTimes(); renderChosen();
+};
+</script>
+</body>
+</html>
